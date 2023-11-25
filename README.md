@@ -7,8 +7,9 @@ This project creates high quality README files based on what the user enters. Th
 ## **Table of Contents**
 1. [Installation](#installation)
 2. [Usage](#usage)
-3. [Contributions](#contributions)
+3. [Contributions](#contributing)
 4. [License](#license)
+   
     
 ## Installation
 This project requires node and inquirer to function properly. Node can be located at [Node](https://nodejs.org/en/). Inquirer can be found at [Inquirer.js](https://www.npmjs.com/package/inquirer/v/8.2.4) and downloaded.
@@ -16,13 +17,13 @@ This project requires node and inquirer to function properly. Node can be locate
 ## Usage
 Once installed, the user needs to navigate to the folder with the '''index.js''' file in their code editor or terminal. Once there, the user needs to run '''node index.js''' in the terminal to begin the prompt section. At the end of the prompt section, the program will format the responses and then create a README.md file from said responses. The newly created README will be created in the same folder as the index.js file (current working directory).
 
-## Contributions
+## License
+This product is protected by a [MIT License](http://choosealicense.com/licenses/mit).
+
+## Contributing
 I, Alex Messina, did most of the code logic and added the prompts for this project. The source code was originally taken from [potential-enigma](https://github.com/coding-boot-camp/potential-enigma).
 
-## [MIT License](http://choosealicense.com/licenses/mit)
-This product is protected by a MIT License.
-
-## Testing
+## Tests
 No tests are needed for this project. You can easily see the prompts and will tell if the README.md is what you want by opening and looking at it.
 
 ## Questions

@@ -7,9 +7,10 @@ function renderLicenseBadge(license) {
   }
   else{
     while(badgeName.search(" ") > 0){
-      console.log(badgeName)
-      console.log(badgeName.search(" "))
       badgeName = badgeName.replace(" ", "_")
+    }
+    while(badgeName.search("-") > 0){
+      badgeName = badgeName.replace("-", "_")
     }
     badgeName = badgeName + "-green"
     const badge = `![Static Badge](https://img.shields.io/badge/license-${badgeName})`
@@ -37,7 +38,7 @@ function renderLicenseSection(license) {
     return "";
   }
   else{
-    return `This product is protected by a ${license}.`
+    return `This product is protected by a [${license}](${licenseLink}).`
   }
 }
 
@@ -45,12 +46,13 @@ function renderLicenseSection(license) {
 function generateMarkdown(data, map) {
   // Create a table of contents if it is requested - else just enter an empty line
   if(data.Table_of_Contents == "Yes"){
+    //Create the table of contents
     data.Table_of_Contents =
     `## **Table of Contents**
 1. [Installation](#installation)
 2. [Usage](#usage)
-3. [Contributions](#contributions)
-4. [License](#license)
+3. [License](#license)
+4. [Contributing](#contributing)
     `;
   }
   else{
@@ -60,10 +62,6 @@ function generateMarkdown(data, map) {
   // Build a badge, create the license link and adjust the header accordingly. These all take into account if a license is not selected as well
   badge = renderLicenseBadge(data.License)
   licenseLink = renderLicenseLink(map.get(data.License))
-  licenseHeader = `[${data.License}](${licenseLink})`
-  if(licenseLink == ""){
-    licenseHeader = `${data.License}`
-  }
   licenseText = renderLicenseSection(data.License)
 
   // Process the data into a Markdown format then return the data so it can be saved to a file
@@ -79,13 +77,13 @@ ${data.Installation}
 ## Usage
 ${data.Usage}
 
-## Contributions
-${data.Contributions}
-
-## ${licenseHeader}
+## License
 ${licenseText}
 
-## Testing
+## Contributing
+${data.Contributions}
+
+## Tests
 ${data.Tests}
 
 ## Questions
