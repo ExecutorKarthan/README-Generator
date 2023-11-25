@@ -1,6 +1,8 @@
 // TODO: Include packages needed for this application
+const fs = require('fs');
 const inquirer = require('inquirer');
-const genMarkdown = require('./generateMarkdown');
+const genMarkdown = require('./Utils/generateMarkdown');
+const generateMarkdown = require('./Utils/generateMarkdown');
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -8,7 +10,7 @@ const questions = [
     "What is the title of your project?",
     
     //Description
-    "What description do you have for your project",
+    "What description do you have for your project?",
     
     //Table of Contents
     "Do you need a table of contents?",
@@ -43,75 +45,79 @@ function writeToFile(fileName, data) {}
 // TODO: Create a function to initialize app
 function init() {
     inquirer
-        .prompt([
+    .prompt([
             {
-                type: "Input",
+                type: "input",
                 name: "Title",
-                message: questions[0],
+                message: questions[0]
             },
             {
-                type: "Input",
+                type: "input",
                 name: "Description",
-                message: questions[1],
+                message: questions[1]
             },
             {
-                type: "Input",
-                name: "Table of Contents",
+                type: "list",
+                name: "Table_of_Contents",
                 message: questions[2],
+                choices: ["Yes", "No"]
             },
             {
-                type: "Input",
+                type: "input",
                 name: "Installation",
-                message: questions[3],
+                message: questions[3]
             },
             {
-                type: "Input",
+                type: "input",
                 name: "Usage",
-                message: questions[4],
+                message: questions[4]
             },
             {
-                type: "List",
+                type: "list",
                 name: "License",
+                message: questions[5],                
                 choices: ["Apache License 2.0", "GNU General Public License v3.0", "MIT License", 
                 "BSD 2-Clause \"Simplified\" License", "BSD 3-Clause \"New\" or \"Revised\" License",
                 "Boost Software License 1.0", "Creative Commons Zero v1.0 Universal", "Eclipse Public License 2.0",
                 "GNU Affero General Public v3.0", "GNU General Public v2.0", "GNU Lesser General Public v2.1",
-                "Mozilla Public License 2.0", "The Unlicense", "No license"],
-                message: questions[5],
+                "Mozilla Public License 2.0", "The Unlicense", "No license"]
             },
             {
-                type: "Input",
-                name: "Contributing",
-                message: questions[6],
+                type: "input",
+                name: "Contributions",
+                message: questions[6]
             },
             {
-                type: "Input",
+                type: "input",
                 name: "Tests",
-                message: questions[7],
+                message: questions[7]
             },
             {
-                type: "Input",
-                name: "GitHub username",
-                message: questions[8],
+                type: "input",
+                name: "GitHubUsername",
+                message: questions[8]
             },
             {
-                type: "Input",
-                name: "GitHub profile URL",
-                message: questions[9],
+                type: "input",
+                name: "GitHubProfileURL",
+                message: questions[9]
             },
             {
-                type: "Input",
-                name: "Email Address",
-                message: questions[10],
+                type: "input",
+                name: "EmailAddress",
+                message: questions[10]
             },
             {
-                type: "Input",
-                name: "Contact Instructions",
-                message: questions[11],
-            },
+                type: "input",
+                name: "ContactInstructions",
+                message: questions[11]
+            }
         ])
         .then((data) => {
             console.log(data)
+            const processedData = generateMarkdown(data)
+            fs.writeFile(`${data.Title}_README.md`, processedData, (err) =>
+            err ? console.error(err) : console.log("File created"))
         })
 }
 
