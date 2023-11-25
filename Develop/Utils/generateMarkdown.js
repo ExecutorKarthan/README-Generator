@@ -15,10 +15,10 @@ function generateMarkdown(data) {
   if(data.Table_of_Contents == "Yes"){
     data.Table_of_Contents =
     `## **Table of Contents**
-    1. [Installation](#installation)
-    2. [Usage](#usage)
-    3. [Contributions](#contributions)
-    4. [License](#license)
+1. [Installation](#installation)
+2. [Usage](#usage)
+3. [Contributions](#contributions)
+4. [License](#license)
     `;
   }
   else{
@@ -40,8 +40,8 @@ ${data.Usage}
 ## Contributions
 ${data.Contributions}
 
-## License
-${data.License}
+## ${data.License} License
+
 
 ## Testing
 ${data.Tests}
