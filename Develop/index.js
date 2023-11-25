@@ -1,8 +1,22 @@
+// Create a map for license data
+const licenseMap = new Map();
+
+fetch("https://api.github.com/licenses")
+.then(function (response){
+    return response.json()
+    })
+.then(function(response){
+    response.forEach(element => {
+        licenseMap.set(element.name, element.key)
+        });
+    })
+
 // TODO: Include packages needed for this application
 const fs = require('fs');
 const inquirer = require('inquirer');
-const genMarkdown = require('./Utils/generateMarkdown');
 const generateMarkdown = require('./Utils/generateMarkdown');
+
+//Create a list of license objects
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -40,7 +54,10 @@ const questions = [
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, (err) =>
+    err ? console.error(err) : console.log("File created"))
+}
 
 // TODO: Create a function to initialize app
 function init() {
@@ -114,10 +131,10 @@ function init() {
             }
         ])
         .then((data) => {
-            console.log(data)
-            const processedData = generateMarkdown(data)
-            fs.writeFile(`${data.Title}_README.md`, processedData, (err) =>
-            err ? console.error(err) : console.log("File created"))
+            console.log(licenseMap)
+            const processedData = generateMarkdown(data, licenseMap);
+            const fileName = `${data.Title}_README.md`;
+            writeToFile(fileName, processedData);
         })
 }
 
