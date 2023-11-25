@@ -1,13 +1,17 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
+  var badgeName = license
   if(license == ""){
     return "";
   }
   else{
-    while(license.search(" ") > 0){
-      license = license.replace(" ", "_")
+    while(badgeName.search(" ") > 0){
+      console.log(badgeName)
+      console.log(badgeName.search(" "))
+      badgeName = badgeName.replace(" ", "_")
     }
+    badgeName = badgeName + "-green"
     const badge = `https://img.shields.io/badge/license-${badgeName}`
     return badge;
   }
@@ -28,21 +32,11 @@ function renderLicenseLink(license) {
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
-  const licenseBody = ""
   if(license == ""){
-    return "";
+    return "This product does not have a license";
   }
   else{
-    fetch(`https://api.github.com/licenses/${license}`)
-    .then(function (response){
-      return response.json()
-      })
-    .then(function (response) {
-      console.log(response)
-      console.log(response.body)
-      licenseBody = response.body
-    })
-    return licenseBody;
+    return `This product is protected by ${license}`
   }
 }
 
@@ -61,15 +55,9 @@ function generateMarkdown(data, map) {
     data.Table_of_Contents = "";
   }
 
-  console.log(data.License)
-  console.log(map.get(data.License))
-  console.log(map.get(data.License))
   badge = renderLicenseBadge(data.License)
   licenseLink = renderLicenseLink(map.get(data.License))
-  licenseText = renderLicenseSection(map.get(data.License))
-  console.log(badge)
-  console.log(licenseLink)
-  console.log(licenseText)
+  licenseText = renderLicenseSection(data.License)
 
   return `# **${data.Title}**
 ${badge}

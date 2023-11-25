@@ -131,7 +131,6 @@ function init() {
             }
         ])
         .then((data) => {
-            console.log(licenseMap)
             const processedData = generateMarkdown(data, licenseMap);
             const fileName = `${data.Title}_README.md`;
             writeToFile(fileName, processedData);
