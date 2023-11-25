@@ -2,7 +2,7 @@
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
   var badgeName = license
-  if(license == ""){
+  if(license == "No license"){
     return "";
   }
   else{
@@ -12,7 +12,7 @@ function renderLicenseBadge(license) {
       badgeName = badgeName.replace(" ", "_")
     }
     badgeName = badgeName + "-green"
-    const badge = `https://img.shields.io/badge/license-${badgeName}`
+    const badge = `![Static Badge](https://img.shields.io/badge/license-${badgeName})`
     return badge;
   }
 }
@@ -20,6 +20,7 @@ function renderLicenseBadge(license) {
 // TODO: Create a function that returns the license link
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
+  console.log(license)
   if(license == ""){
     return "";
   }
@@ -32,11 +33,11 @@ function renderLicenseLink(license) {
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
-  if(license == ""){
-    return "This product does not have a license";
+  if(license == "No license"){
+    return "";
   }
   else{
-    return `This product is protected by ${license}`
+    return `This product is protected by ${license}.`
   }
 }
 
@@ -57,6 +58,10 @@ function generateMarkdown(data, map) {
 
   badge = renderLicenseBadge(data.License)
   licenseLink = renderLicenseLink(map.get(data.License))
+  licenseHeader = `[${data.License}](${licenseLink})`
+  if(licenseLink == ""){
+    licenseHeader = `${data.License}`
+  }
   licenseText = renderLicenseSection(data.License)
 
   return `# **${data.Title}**
@@ -74,7 +79,7 @@ ${data.Usage}
 ## Contributions
 ${data.Contributions}
 
-## [${data.License}](${licenseLink})
+## ${licenseHeader}
 ${licenseText}
 
 ## Testing

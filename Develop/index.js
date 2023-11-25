@@ -1,5 +1,7 @@
-// Create a map for license data
+// Create a map for license data and an array for license choices
 const licenseMap = new Map();
+licenseMap.set("No license", "")
+const licenseChoices = ["No license"];
 
 fetch("https://api.github.com/licenses")
 .then(function (response){
@@ -7,7 +9,8 @@ fetch("https://api.github.com/licenses")
     })
 .then(function(response){
     response.forEach(element => {
-        licenseMap.set(element.name, element.key)
+        licenseMap.set(element.name, element.key);
+        licenseChoices.push(element.name);
         });
     })
 
@@ -15,8 +18,6 @@ fetch("https://api.github.com/licenses")
 const fs = require('fs');
 const inquirer = require('inquirer');
 const generateMarkdown = require('./Utils/generateMarkdown');
-
-//Create a list of license objects
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -93,11 +94,7 @@ function init() {
                 type: "list",
                 name: "License",
                 message: questions[5],                
-                choices: ["Apache License 2.0", "GNU General Public License v3.0", "MIT License", 
-                "BSD 2-Clause \"Simplified\" License", "BSD 3-Clause \"New\" or \"Revised\" License",
-                "Boost Software License 1.0", "Creative Commons Zero v1.0 Universal", "Eclipse Public License 2.0",
-                "GNU Affero General Public v3.0", "GNU General Public v2.0", "GNU Lesser General Public v2.1",
-                "Mozilla Public License 2.0", "The Unlicense", "No license"]
+                choices: licenseChoices,
             },
             {
                 type: "input",
@@ -132,7 +129,7 @@ function init() {
         ])
         .then((data) => {
             const processedData = generateMarkdown(data, licenseMap);
-            const fileName = `${data.Title}_README.md`;
+            const fileName = `${data.Title}.md`;
             writeToFile(fileName, processedData);
         })
 }
