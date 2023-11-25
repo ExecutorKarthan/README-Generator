@@ -1,4 +1,4 @@
-// TODO: Create a function that returns a license badge based on which license is passed in
+// Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
   var badgeName = license
@@ -17,7 +17,7 @@ function renderLicenseBadge(license) {
   }
 }
 
-// TODO: Create a function that returns the license link
+// Create a function that returns the license link
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
   console.log(license)
@@ -30,19 +30,20 @@ function renderLicenseLink(license) {
   }
 }
 
-// TODO: Create a function that returns the license section of README
+// Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
   if(license == "No license"){
     return "";
   }
   else{
-    return `This product is protected by ${license}.`
+    return `This product is protected by a ${license}.`
   }
 }
 
-// TODO: Create a function to generate markdown for README
+// Create a function to generate markdown for README
 function generateMarkdown(data, map) {
+  // Create a table of contents if it is requested - else just enter an empty line
   if(data.Table_of_Contents == "Yes"){
     data.Table_of_Contents =
     `## **Table of Contents**
@@ -56,6 +57,7 @@ function generateMarkdown(data, map) {
     data.Table_of_Contents = "";
   }
 
+  // Build a badge, create the license link and adjust the header accordingly. These all take into account if a license is not selected as well
   badge = renderLicenseBadge(data.License)
   licenseLink = renderLicenseLink(map.get(data.License))
   licenseHeader = `[${data.License}](${licenseLink})`
@@ -64,6 +66,7 @@ function generateMarkdown(data, map) {
   }
   licenseText = renderLicenseSection(data.License)
 
+  // Process the data into a Markdown format then return the data so it can be saved to a file
   return `# **${data.Title}**
 ${badge}
 ## Description
