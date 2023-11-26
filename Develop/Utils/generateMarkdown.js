@@ -87,7 +87,7 @@ ${data.Contributions}
 ${data.Tests}
 
 ## Questions
-My GitHub username is [${data.GitHubUsername}](${data.GitHubProfileURL})
+My GitHub username is ${data.GitHubUsername} and my GitHub profile can be found here [${data.GitHubProfileURL}](${data.GitHubProfileURL}).
 
 ${data.ContactInstructions} 
 ${data.EmailAddress}
